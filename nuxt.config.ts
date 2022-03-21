@@ -3,19 +3,6 @@ export default {
         BASE_URL: process.env.BASE_URL,
     },
 
-    buildModules: ['@nuxtjs/tailwindcss', '@nuxt/typescript-build'],
+    buildModules: ['@nuxtjs/tailwindcss', '@nuxt/typescript-build',],
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

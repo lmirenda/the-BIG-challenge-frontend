@@ -25,6 +25,7 @@
               autocomplete="email"
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
+              required=""
               v-model="email"
             />
           </div>
@@ -38,6 +39,7 @@
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
               v-model="password"
+              required=""
             />
           </div>
         </div>
@@ -77,14 +79,16 @@ async function login() {
   await csrf()
 
   try {
-    await $apiFetch('/api/login', {
+    const token = await $apiFetch('/api/login', {
       method: 'POST',
       body: {
         email: email.value,
         password: password.value,
       },
     })
-    window.location.pathname = '/control-panel'
+    sessionStorage.setItem('validToken', token)
+    // console.log(token)
+    window.location.pathname = '/user-panel'
   } catch (err) {
     console.log(err.data)
     errors.value = Object.values(err.data.errors).flat()

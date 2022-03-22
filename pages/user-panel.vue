@@ -2,6 +2,7 @@
   <div>
     <div>Name: {{ user?.name }}</div>
     <div>Email: {{ user?.email }}</div>
+    <LogoutButton />
   </div>
 </template>
 

@@ -87,7 +87,6 @@ async function login() {
       },
     })
     sessionStorage.setItem('validToken', token)
-    // console.log(token)
     window.location.pathname = '/user-panel'
   } catch (err) {
     console.log(err.data)

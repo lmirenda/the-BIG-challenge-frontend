@@ -22,17 +22,29 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" @submit.prevent="register">
-          <BaseInputField :name="'name'" :type="'text'" v-model="fullName">
+        <Form class="space-y-6" @submit="handleSubmit">
+          <BaseInputField
+            :name="'name'"
+            :type="'text'"
+            v-model="fullName"
+            :validation="validateName"
+          >
             Full name
           </BaseInputField>
-          <BaseInputField :name="'email'" :type="'email'" v-model="email">
+          <BaseInputField
+            :name="'email'"
+            :type="'email'"
+            v-model="email"
+            :validation="validateEmail"
+          >
             Email
           </BaseInputField>
           <BaseInputField
             :name="'confirmedEmail'"
             :type="'email'"
             v-model="confirmedEmail"
+            :referenceValue="email"
+            :validation="validateRequired"
           >
             Confirm email
           </BaseInputField>
@@ -41,6 +53,7 @@
             :name="'password'"
             :type="'password'"
             v-model="password"
+            :validation="validatePassword"
           >
             Password
           </BaseInputField>
@@ -49,12 +62,15 @@
             :name="'confirmedPassword'"
             :type="'password'"
             v-model="confirmedPassword"
+            :referenceValue="password"
+            :validation="validateRequired"
           >
             Confirm Password
           </BaseInputField>
 
-          <BaseRadioSelect v-model="type" />
-          Parent value: {{ type.name }}
+          <BaseRadioSelect v-model="type" @updateType="updateParent"
+            >Account Type: {{ type }}</BaseRadioSelect
+          >
 
           <div>
             <button
@@ -63,24 +79,48 @@
             >
               Register
             </button>
+            <span
+              class="mt-1 text-red-500 text-xs"
+              v-if="showUnprocessableError"
+              >Unprocessable. Check your inputs.</span
+            >
           </div>
-        </form>
+        </Form>
+        <div>
+          <span class="mt-1 text-red-500 text-xs" v-if="errors.length > 0">
+            <ul>
+              <li v-for="error in errors" :key="error">
+                {{ error }}
+              </li>
+            </ul>
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import {
+  validateName,
+  validatePassword,
+  validateEmail,
+  validateRequired,
+  validateAllFields,
+} from '../helpers/validators/registration'
+import { Form } from 'vee-validate'
+
 const { $apiFetch } = useNuxtApp()
 
 const fullName = ref('')
 const email = ref('')
-const confirmedEmail = ref('')
+const confirmedEmail = ref('lightit@mail.com')
 const password = ref('')
 const confirmedPassword = ref('')
 const type = ref('')
 const errors = ref([])
 const isLoading = ref(false)
+const showUnprocessableError = ref('')
 
 function csrf() {
   return $apiFetch('/sanctum/csrf-cookie')
@@ -98,7 +138,7 @@ async function register() {
         password: password.value,
         confirmed_password: confirmedPassword.value,
         name: fullName.value,
-        type: type.value.name,
+        type: type.value,
       },
     })
     window.location.pathname = '/login'
@@ -107,5 +147,21 @@ async function register() {
     errors.value = Object.values(err.data.errors).flat()
   }
   isLoading.value = false
+}
+
+function handleSubmit(values) {
+  console.log(values)
+  let process = validateAllFields(values)
+  console.log(process)
+  if (process) {
+    showUnprocessableError.value = false
+    register()
+  } else {
+    showUnprocessableError.value = true
+  }
+}
+
+function updateParent(value) {
+  type.value = value
 }
 </script>

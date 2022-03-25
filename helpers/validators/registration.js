@@ -1,6 +1,6 @@
 export const validateName = (value) => {
     if (!value) {
-        return 'This field is required'
+        return 'This field is required. '
     }
     if (value.length < 3) {
         return 'Full name must be at least 3 characters'
@@ -11,7 +11,7 @@ export const validatePassword = (value) => {
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
 
     if (!value) {
-        return 'This field is required'
+        return 'This field is required. '
     }
     if (value.length < 8) {
         return 'You password must be at least 8 characters long'
@@ -23,13 +23,33 @@ export const validatePassword = (value) => {
 };
 export const validateEmail = (value) => {
     if (!value) {
-        return 'This field is required';
+        return 'This field is required. ';
     }
-    // if the field is not a valid email
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (!regex.test(value)) {
         return 'This field must be a valid email';
     }
-    // All is good
     return true;
 }
+
+export const validateRequired = (value) => {
+    if (!value) {
+        return 'This field is required. '
+    }
+
+    return true
+}
+
+export const validateAllFields = (values) => {
+    console.log(values.name)
+    console.log(values.email)
+    console.log(values.confirmedEmail)
+    console.log(values.password)
+    console.log(values.confirmedPassword)
+    if (values.confirmedEmail == values.email &&
+        values.confirmedPassword === values.password) {
+        return true
+    }
+    return false
+}
+

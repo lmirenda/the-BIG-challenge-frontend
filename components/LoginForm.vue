@@ -53,7 +53,7 @@
           </button>
         </div>
       </form>
-      <ul v-if="errors.length > 0">
+      <ul v-if="errors.length > 0" class="mt-1 text-red-500 text-xs">
         <li v-for="(error, index) in errors" :key="index">
           {{ error }}
         </li>

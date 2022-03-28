@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div>Name: {{ user?.name }}</div>
-    <div>Email: {{ user?.email }}</div>
-    <LogoutButton />
-  </div>
+  <NuxtLayout name="user">
+    <div>
+      <div>Name: {{ user?.name }}</div>
+      <div>Email: {{ user?.email }}</div>
+      <LogoutButton />
+    </div>
+  </NuxtLayout>
 </template>
 
 <script setup>

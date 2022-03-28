@@ -22,7 +22,7 @@
           />
         </div>
         <div>
-          <UserDropdownItem :item="logoutItem" />
+          <UserDropdownLogout />
         </div>
       </MenuItems>
     </transition>

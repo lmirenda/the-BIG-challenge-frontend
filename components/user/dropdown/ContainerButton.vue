@@ -13,7 +13,7 @@
           <span class="text-gray-900 text-sm font-medium truncate">{{
             user.name
           }}</span>
-          <span class="text-gray-500 text-sm truncate">{{ user.type }}</span>
+          <span class="text-gray-500 text-sm truncate">{{ user.email }}</span>
         </span>
       </span>
       <SelectorIcon
@@ -28,13 +28,9 @@
 import { MenuButton } from '@headlessui/vue'
 import { SelectorIcon } from '@heroicons/vue/solid'
 
-const props = defineProps({
-  user: {
-    type: Object,
-    default: {
-      name: 'User Name',
-      type: 'User type',
-    },
-  },
+const user = ref({ name: 'User', type: 'User' })
+
+onMounted(() => {
+  user.value = JSON.parse(sessionStorage.getItem('user'))
 })
 </script>

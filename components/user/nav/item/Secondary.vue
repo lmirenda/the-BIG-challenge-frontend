@@ -18,7 +18,7 @@
 <script setup>
 const props = defineProps({
   item: {
-    type: Array,
+    type: Object,
     default: { name: 'Item', href: '#', bgColorClass: 'bg-grey-500' },
   },
 })

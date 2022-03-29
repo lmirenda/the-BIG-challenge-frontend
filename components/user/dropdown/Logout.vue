@@ -27,7 +27,7 @@ async function logout() {
         Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
       },
     })
-    sessionStorage.setItem('validToken', '')
+    sessionStorage.clear()
     window.location.pathname = '/login'
   } catch (err) {
     console.log(err.data)

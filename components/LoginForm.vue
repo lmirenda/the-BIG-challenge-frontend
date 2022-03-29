@@ -63,6 +63,7 @@
 </template>
 
 <script setup>
+import { toRaw } from 'vue'
 const { $apiFetch } = useNuxtApp()
 
 const email = ref('')
@@ -72,6 +73,17 @@ const isLoading = ref(false)
 
 function csrf() {
   return $apiFetch('/sanctum/csrf-cookie')
+}
+
+async function saveUser() {
+  let user = await $apiFetch('/api/user', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
+    },
+  })
+  let rawData = toRaw(user)
+  sessionStorage.setItem('user', JSON.stringify(rawData))
 }
 
 async function login() {
@@ -87,6 +99,7 @@ async function login() {
       },
     })
     sessionStorage.setItem('validToken', token)
+    await saveUser(token)
     window.location.pathname = '/user-panel'
   } catch (err) {
     console.log(err.data)

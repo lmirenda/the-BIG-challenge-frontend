@@ -5,7 +5,7 @@
     <div class="flex items-center flex-shrink-0 px-6">
       <img
         class="h-8 w-auto fill-black"
-        src="https://lightit.io/images/Logo.svg"
+        src="~/assets/icons/Logo.svg"
         alt="Workflow"
       />
     </div>

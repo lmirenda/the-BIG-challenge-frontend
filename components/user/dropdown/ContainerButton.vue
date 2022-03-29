@@ -30,7 +30,7 @@ import { SelectorIcon } from '@heroicons/vue/solid'
 
 const user = ref({ name: 'User', type: 'User' })
 
-onMounted(() => {
+onBeforeMount(() => {
   user.value = JSON.parse(sessionStorage.getItem('user'))
 })
 </script>

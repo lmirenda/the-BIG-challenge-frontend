@@ -8,7 +8,7 @@
 import { HomeIcon, ViewListIcon } from '@heroicons/vue/outline'
 
 const mainItems = ref([
-  { name: 'Home', href: '/about', icon: HomeIcon, current: true },
+  { name: 'Home', href: '/user-panel', icon: HomeIcon, current: true },
   {
     name: 'My petitions',
     href: '/petitions',

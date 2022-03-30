@@ -2,11 +2,11 @@ export
     const formatColor = (petitionObj) => {
         switch (petitionObj.status) {
             case 'completed':
-                return petitionObj.bgColorClass = 'bg-yellow-100 text-yellow-500'
+                return petitionObj.bgColorClass = 'bg-pink-600'
             case 'pending':
-                return petitionObj.bgColorClass = 'bg-blue-100 text-blue-500'
+                return petitionObj.bgColorClass = 'bg-yellow-600'
             case 'in progress':
-                return petitionObj.bgColorClass = 'bg-green-100 text-green-500'
+                return petitionObj.bgColorClass = 'bg-blue-500'
         }
     }
 

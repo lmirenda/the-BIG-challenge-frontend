@@ -45,7 +45,7 @@ const petitions = ref([
     initials: 'PA',
     status: 'Pending',
     pinned: true,
-    bgColorClass: 'bg-blue-500',
+    bgColorClass: 'bg-pink-600',
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const petitions = ref([
     initials: 'PA',
     status: 'In-progress',
     pinned: true,
-    bgColorClass: 'bg-green-600',
+    bgColorClass: 'bg-yellow-600',
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ const petitions = ref([
     initials: 'PA',
     status: 'Finished',
     pinned: true,
-    bgColorClass: 'bg-yellow-600',
+    bgColorClass: 'bg-blue-500',
   },
 ])
 </script>

@@ -64,6 +64,7 @@
 
 <script setup>
 import { toRaw } from 'vue'
+import { formatColor, unpinPetition, initials } from '~~/helpers/formatPetition'
 const { $apiFetch } = useNuxtApp()
 
 const email = ref('')
@@ -99,7 +100,7 @@ async function login() {
       },
     })
     sessionStorage.setItem('validToken', token)
-    await saveUser(token)
+    await saveUser()
     window.location.pathname = '/user-panel'
   } catch (err) {
     console.log(err.data)

@@ -73,7 +73,14 @@ import { DotsVerticalIcon } from '@heroicons/vue/solid'
 const props = defineProps({
   item: {
     type: Object,
-    default: {},
+    default: {
+      id: 3,
+      title: 'Dummy Petition',
+      initials: 'DP',
+      status: 'Unknown',
+      pinned: true,
+      bgColorClass: 'bg-pink-600',
+    },
   },
 })
 </script>

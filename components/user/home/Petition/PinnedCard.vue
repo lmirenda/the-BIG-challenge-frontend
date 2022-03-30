@@ -8,23 +8,23 @@
       class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3"
     >
       <UserHomePetitionCard
-        v-for="item in pinnedItems"
-        :key="item.id"
-        :item="item"
+        v-for="petition in pinnedPetitions"
+        :key="petition.id"
+        :item="petition"
       />
     </ul>
   </div>
 </template>
 
 <script setup>
-const projects = ref([
+const petitions = ref([
   {
     id: 1,
     title: 'Petition',
     initials: 'PA',
     status: 'Pending',
     pinned: true,
-    bgColorClass: 'bg-blue-500',
+    bgColorClass: 'bg-pink-600',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = ref([
     initials: 'PA',
     status: 'In-progress',
     pinned: true,
-    bgColorClass: 'bg-green-600',
+    bgColorClass: 'bg-yellow-600',
   },
   {
     id: 3,
@@ -40,10 +40,12 @@ const projects = ref([
     initials: 'PA',
     status: 'Finished',
     pinned: true,
-    bgColorClass: 'bg-yellow-600',
+    bgColorClass: 'bg-blue-500',
   },
 ])
-const pinned = projects.value.filter((project) => project.pinned)
+const pinned = petitions.value.filter((project) => project.pinned)
 
-const pinnedItems = ref(projects)
+const pinnedPetitions = ref(pinned)
+
+// TODO: Retrieve all petitions from session Storage  and save it in petitions ref()
 </script>

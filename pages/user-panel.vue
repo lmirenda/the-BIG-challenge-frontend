@@ -1,23 +1,25 @@
 <template>
-  <NuxtLayout name="user">
-    <div>
-      <div>Name: {{ user?.name }}</div>
-      <div>Email: {{ user?.email }}</div>
-      <LogoutButton />
-    </div>
-  </NuxtLayout>
+  <NuxtLayout name="user"> <UserHomeContainer /> </NuxtLayout>
 </template>
 
 <script setup>
+import { toRaw } from 'vue'
 const { $apiFetch } = useNuxtApp()
-const user = ref(null)
+const petitions = ref([])
 
-onMounted(async () => {
-  user.value = await $apiFetch('/api/user', {
+async function getPetitions() {
+  let petition = await $apiFetch('/api/my/petitions', {
     method: 'GET',
     headers: {
+      Accept: 'application/json',
+      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
       Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
     },
   })
-})
+  petitions.value = petition[0]
+  // console.log(toRaw(petitions.value))
+  console.log(petitions.value)
+}
+
+onMounted(getPetitions)
 </script>

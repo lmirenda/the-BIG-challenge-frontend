@@ -3,8 +3,10 @@
 </template>
 
 <script setup>
-import { toRaw } from 'vue'
+import { usePatientPetitionStore } from '@/stores/patientPetitions'
+
 const { $apiFetch } = useNuxtApp()
+const petitionStore = usePatientPetitionStore()
 const petitions = ref([])
 
 async function getPetitions() {
@@ -16,9 +18,10 @@ async function getPetitions() {
       Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
     },
   })
+
   petitions.value = petition[0]
-  // console.log(toRaw(petitions.value))
   console.log(petitions.value)
+  petitionStore.setPetitions(petitions.value)
 }
 
 onMounted(getPetitions)

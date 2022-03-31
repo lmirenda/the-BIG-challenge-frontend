@@ -28,9 +28,10 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-100">
           <UserHomePetitionRow
-            v-for="petition in petitions"
+            v-for="petition in petitionStore.petitions"
             :key="petition.id"
             :item="petition"
+            :pin="petitionStore.pinPetition(petition.id)"
           />
         </tbody>
       </table>
@@ -38,23 +39,8 @@
   </div>
 </template>
 <script setup>
-import { mapState } from 'vuex'
+import { usePatientPetitionStore } from '@/stores/patientPetitions'
+const petitionStore = usePatientPetitionStore()
 
-const { $apiFetch } = useNuxtApp()
-
-const petitions = ref([])
-async function getPetitions() {
-  let petition = await $apiFetch('/api/my/petitions', {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
-      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
-    },
-  })
-  petitions.value = petition[0]
-  console.log(petitions.value)
-}
-
-onMounted(getPetitions)
+const petitions = ref(petitionStore.petitions)
 </script>

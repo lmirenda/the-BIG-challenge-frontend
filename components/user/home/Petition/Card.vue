@@ -49,13 +49,15 @@
             </div>
             <div class="py-1">
               <MenuItem v-slot="{ active }">
-                <a
-                  href="#"
+                <span
+                  @click="petitionStore.unpinPetition(item.id)"
                   :class="[
-                    active ? 'bg-gray-100 text-red-400' : 'text-gray-700',
+                    active
+                      ? 'bg-gray-100 text-red-400 cursor-pointer'
+                      : 'text-gray-700',
                     'block px-4 py-2 text-sm',
                   ]"
-                  >Removed from pinned</a
+                  >Removed from pinned</span
                 >
               </MenuItem>
             </div>
@@ -70,6 +72,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ClockIcon, MenuAlt1Icon, ViewListIcon } from '@heroicons/vue/outline'
 import { DotsVerticalIcon } from '@heroicons/vue/solid'
+import { usePatientPetitionStore } from '@/stores/patientPetitions'
+const petitionStore = usePatientPetitionStore()
 const props = defineProps({
   item: {
     type: Object,

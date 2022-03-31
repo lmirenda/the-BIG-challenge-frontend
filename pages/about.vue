@@ -4,22 +4,20 @@
       {{ counterStore.doubleCount }}
     </button>
     <p>{{ petitionStore.petitions }}</p>
-    <button @click="petitionStore.changePetitions()">Change petition</button>
-    <button @click="petitionStore.setPetitions(data)">Get API petitions</button>
+    <button @click="petitionStore.pinPetition(data[0].id)" v-bind="data">
+      PinPetition
+    </button>
+    <button @click="petitionStore.unpinPetition(data[0].id)">
+      UnpinPetition
+    </button>
   </div>
 </template>
 
-<script>
+<script setup>
 import { useCounterStore } from '@/stores/counter'
 import { usePatientPetitionStore } from '@/stores/patientPetitions'
 
-export default {
-  setup() {
-    const counterStore = useCounterStore()
-    const petitionStore = usePatientPetitionStore()
-    const data = ref([{ title: 'ref title', symptoms: 'ref symptoms' }])
-
-    return { counterStore, petitionStore, data }
-  },
-}
+const counterStore = useCounterStore()
+const petitionStore = usePatientPetitionStore()
+const data = ref([{ title: 'ref title', symptoms: 'ref symptoms', id: 1 }])
 </script>

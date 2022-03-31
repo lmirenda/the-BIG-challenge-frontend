@@ -11,39 +11,18 @@
         v-for="petition in pinnedPetitions"
         :key="petition.id"
         :item="petition"
+        :removeFromPinned="petitionStore.unpinPetition(petition.id)"
       />
     </ul>
   </div>
 </template>
 
 <script setup>
-const petitions = ref([
-  {
-    id: 1,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'Pending',
-    pinned: true,
-    bgColorClass: 'bg-pink-600',
-  },
-  {
-    id: 2,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'In-progress',
-    pinned: true,
-    bgColorClass: 'bg-yellow-600',
-  },
-  {
-    id: 3,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'Finished',
-    pinned: true,
-    bgColorClass: 'bg-blue-500',
-  },
-])
-const pinned = petitions.value.filter((project) => project.pinned)
+import { usePatientPetitionStore } from '@/stores/patientPetitions'
+const petitionStore = usePatientPetitionStore()
+
+const petitions = ref(petitionStore.petitions)
+const pinned = petitions.value.filter((petition) => petition.pinned)
 
 const pinnedPetitions = ref(pinned)
 

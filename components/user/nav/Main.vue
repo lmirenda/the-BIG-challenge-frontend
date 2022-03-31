@@ -12,6 +12,7 @@ const mainItems = ref([
   {
     name: 'My Info',
     href: '/info',
+
     icon: ViewListIcon,
     current: false,
   },

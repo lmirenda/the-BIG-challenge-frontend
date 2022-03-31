@@ -17,6 +17,7 @@
 import { useCounterStore } from '@/stores/counter'
 import { usePatientPetitionStore } from '@/stores/patientPetitions'
 
+
 const counterStore = useCounterStore()
 const petitionStore = usePatientPetitionStore()
 const data = ref([{ title: 'ref title', symptoms: 'ref symptoms', id: 1 }])

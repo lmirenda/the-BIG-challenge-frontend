@@ -1,5 +1,6 @@
 <template>
   <NuxtLayout name="user"> <UserHomeContainer /> </NuxtLayout>
+
 </template>
 
 <script setup>

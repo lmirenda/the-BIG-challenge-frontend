@@ -101,6 +101,7 @@ async function login() {
     })
     sessionStorage.setItem('validToken', token)
     await saveUser()
+
     window.location.pathname = '/user-panel'
   } catch (err) {
     console.log(err.data)

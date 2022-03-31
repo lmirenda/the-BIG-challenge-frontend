@@ -1,7 +1,7 @@
 export
     const formatColor = (petitionObj) => {
         switch (petitionObj.status) {
-            case 'completed':
+            case 'done':
                 return petitionObj.bgColorClass = 'bg-pink-600'
             case 'pending':
                 return petitionObj.bgColorClass = 'bg-yellow-600'

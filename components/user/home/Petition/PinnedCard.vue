@@ -47,5 +47,5 @@ const pinned = petitions.value.filter((project) => project.pinned)
 
 const pinnedPetitions = ref(pinned)
 
-// TODO: Retrieve all petitions from session Storage  and save it in petitions ref()
+// TODO: Retrieve all petitions from session API, modify and save to Vuex Storage
 </script>

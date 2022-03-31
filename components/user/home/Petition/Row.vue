@@ -9,21 +9,21 @@
           aria-hidden="true"
         />
         <a href="#" class="truncate hover:text-gray-600">
-          <span> Project title with a very long name here </span>
+          <span> {{ item.title }} </span>
         </a>
       </div>
     </td>
     <td class="px-6 py-3 text-sm text-gray-500 font-medium">
       <div class="flex items-center space-x-2">
         <div class="flex flex-shrink-0 -space-x-1">
-          Dr With a very Long Name Goes here
+          {{ item.doctor ? item.doctor.name : '-' }}
         </div>
       </div>
     </td>
     <td
       class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left"
     >
-      Project Date Goes here
+      {{ item.created_at }}
     </td>
     <td class="px-6 py-3 whitespace-nowrap text-center text-sm font-medium">
       <a href="#" class="text-indigo-600 hover:text-indigo-900">Pin</a>

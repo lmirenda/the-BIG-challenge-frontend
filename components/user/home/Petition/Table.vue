@@ -38,30 +38,23 @@
   </div>
 </template>
 <script setup>
-const petitions = ref([
-  {
-    id: 1,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'Pending',
-    pinned: true,
-    bgColorClass: 'bg-pink-600',
-  },
-  {
-    id: 2,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'In-progress',
-    pinned: true,
-    bgColorClass: 'bg-yellow-600',
-  },
-  {
-    id: 3,
-    title: 'Petition',
-    initials: 'PA',
-    status: 'Finished',
-    pinned: true,
-    bgColorClass: 'bg-blue-500',
-  },
-])
+import { mapState } from 'vuex'
+
+const { $apiFetch } = useNuxtApp()
+
+const petitions = ref([])
+async function getPetitions() {
+  let petition = await $apiFetch('/api/my/petitions', {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
+      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
+    },
+  })
+  petitions.value = petition[0]
+  console.log(petitions.value)
+}
+
+onMounted(getPetitions)
 </script>

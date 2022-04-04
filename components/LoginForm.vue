@@ -102,9 +102,9 @@ async function login() {
     })
     sessionStorage.setItem('validToken', token)
     const userData = await saveUser()
-    if (userData.type == 'patient' && userData.patientInformation == null) {
+    if (userData.type == 'patient' && userData.patient_information == null) {
       window.location.pathname = '/create-patient'
-    } else if (userData.type == 'patient') {
+    } else {
       window.location.pathname = '/user-panel'
     }
   } catch (err) {

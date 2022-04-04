@@ -150,7 +150,6 @@ async function register() {
 }
 
 function handleSubmit(values) {
-  console.log(values)
   let process = validateAllFields(values)
   console.log(process)
   if (process) {

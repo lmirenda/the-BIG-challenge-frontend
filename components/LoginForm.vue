@@ -85,6 +85,7 @@ async function saveUser() {
   })
   let rawData = toRaw(user)
   sessionStorage.setItem('user', JSON.stringify(rawData))
+  return rawData
 }
 
 async function login() {
@@ -100,9 +101,12 @@ async function login() {
       },
     })
     sessionStorage.setItem('validToken', token)
-    await saveUser()
-
-    window.location.pathname = '/user-panel'
+    const userData = await saveUser()
+    if (userData.type == 'patient' && userData.patientInformation == null) {
+      window.location.pathname = '/create-patient'
+    } else if (userData.type == 'patient') {
+      window.location.pathname = '/user-panel'
+    }
   } catch (err) {
     console.log(err.data)
     errors.value = Object.values(err.data.errors).flat()

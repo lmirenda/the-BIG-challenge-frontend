@@ -27,10 +27,9 @@
     </td>
     <td class="px-6 py-3 whitespace-nowrap text-center text-sm font-medium">
       <button
-        @click="$emit('pin', item.id)"
         class="text-indigo-600 hover:text-indigo-900 border border-indigo-800 px-4 py-2 rounded-md hover:bg-purple-600 hover:text-white focus:outline-none focus:shadow-outline"
       >
-        Pin
+        View
       </button>
     </td>
   </tr>

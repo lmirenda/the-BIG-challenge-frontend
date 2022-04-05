@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-    <UserPatientActions :link="'edit-info'" :name="'Edit info'" :button="true">
+    <UserPatientActions :link="'edit-info'" :name="'Edit info'" :button="false">
       Patient Information</UserPatientActions
     >
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">

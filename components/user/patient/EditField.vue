@@ -6,6 +6,45 @@
         >Edit personal information
       </UserPatientActions>
     </div>
+    <Form class="space-y-6" @submit="handleSubmit">
+      <BaseInputField
+        :name="'name'"
+        :type="'text'"
+        v-model="phone"
+        :validation="validateRequired"
+      >
+        Full name
+      </BaseInputField>
+      <BaseInputField
+        :name="'email'"
+        :type="'email'"
+        v-model="email"
+        :validation="validateEmail"
+      >
+        Email
+      </BaseInputField>
+      <BaseInputField
+        :name="'confirmedEmail'"
+        :type="'email'"
+        v-model="confirmedEmail"
+        :referenceValue="email"
+        :validation="validateRequired"
+      >
+        Confirm email
+      </BaseInputField>
+
+      <div>
+        <button
+          type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Register
+        </button>
+        <span class="mt-1 text-red-500 text-xs" v-if="showUnprocessableError"
+          >Unprocessable. Check your inputs.</span
+        >
+      </div>
+    </Form>
   </form>
 </template>
 

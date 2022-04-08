@@ -53,7 +53,9 @@
       </div>
     </form>
     <div class="my-6">
-      <AlertSuccess v-if="showAlert == true" @close="close" />
+      <AlertSuccess v-if="showAlert == true" @close="close"
+        >Petition created successfully</AlertSuccess
+      >
     </div>
   </div>
 </template>

@@ -27,7 +27,7 @@
     </td>
     <td class="px-6 py-3 whitespace-nowrap text-center text-sm font-medium">
       <NuxtLink
-        :to="'/petitions/' + item.id"
+        :to="'/petitions/doctor/' + item.id"
         class="text-indigo-600 hover:text-indigo-900 border border-indigo-800 px-4 py-2 rounded-md hover:bg-purple-600 hover:text-white focus:outline-none focus:shadow-outline hover:cursor-pointer"
       >
         View
@@ -47,7 +47,7 @@
 
 <script setup>
 const { $apiFetch } = useNuxtApp()
-const link = ref('petitions/' + props.item.id)
+const link = ref('petitions/doctor/' + props.item.id)
 const props = defineProps({
   item: {
     type: Object,

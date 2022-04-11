@@ -3,7 +3,6 @@
     <UserPatientActions :link="'user-panel'" :name="'Go back'" :button="true"
       >Create Petition
     </UserPatientActions>
-
     <UserHomePetitionForm />
   </NuxtLayout>
 </template>

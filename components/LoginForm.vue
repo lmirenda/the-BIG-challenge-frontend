@@ -100,8 +100,10 @@ async function login() {
         password: password.value,
       },
     })
+    const { setUser } = useAuth()
     sessionStorage.setItem('validToken', token)
     const userData = await saveUser()
+    setUser(userData.type)
     if (userData.type == 'patient' && userData.patient_information == null) {
       window.location.pathname = '/create-patient'
     } else {

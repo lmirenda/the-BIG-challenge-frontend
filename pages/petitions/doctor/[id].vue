@@ -1,5 +1,7 @@
 <template>
   <NuxtLayout name="user">
-    <DoctorCard />
+    <ClientOnly>
+      <DoctorCard />
+    </ClientOnly>
   </NuxtLayout>
 </template>

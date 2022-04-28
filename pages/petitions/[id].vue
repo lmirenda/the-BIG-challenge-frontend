@@ -1,7 +1,9 @@
 <template>
   <div>
     <NuxtLayout name="user">
-      <UserHomePetitionCard />
+      <ClientOnly>
+        <UserHomePetitionCard />
+      </ClientOnly>
     </NuxtLayout>
   </div>
 </template>

@@ -4,4 +4,8 @@
   </NuxtLayout>
 </template>
 
-<script setup></script>
+<script setup>
+definePageMeta({
+  middleware: ['auth', 'patient'],
+})
+</script>

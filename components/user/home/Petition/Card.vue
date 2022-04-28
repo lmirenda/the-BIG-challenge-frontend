@@ -55,7 +55,9 @@
           </div>
           <div class="sm:col-span-2" v-if="petition.status != 'pending'">
             <dt class="text-sm font-medium text-gray-500">Doctor</dt>
-            <dd class="mt-1 text-sm text-gray-900">{{ petition.doctor }}</dd>
+            <dd class="mt-1 text-sm text-gray-900">
+              {{ petition.doctor.name }}
+            </dd>
           </div>
           <div class="sm:col-span-2" v-if="petition.status == 'finished'">
             <dt class="text-sm font-medium text-gray-500">Attachments</dt>

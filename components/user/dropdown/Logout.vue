@@ -20,6 +20,7 @@ import { MenuItem } from '@headlessui/vue'
 definePageMeta({
   middleware: ['auth'],
 })
+
 const { $apiFetch } = useNuxtApp()
 const { removeUser } = useAuth()
 

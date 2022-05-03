@@ -22,17 +22,12 @@
             <th
               class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Pin to home
-            </th>
-            <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Accept
+              View
             </th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-100">
-          <DoctorRow
+          <DoctorAcceptedRow
             v-for="petition in petitions"
             :key="petition.id"
             :item="petition"
@@ -48,7 +43,7 @@ const { $apiFetch } = useNuxtApp()
 const petitions = ref()
 
 async function getPetitions() {
-  let petition = await $apiFetch('/api/petitions', {
+  let petition = await $apiFetch('/api/petitions/accepted', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -57,19 +52,9 @@ async function getPetitions() {
     },
   })
 
-  petitions.value = petition[0].data
-}
+  petitions.value = petition.data
 
-async function acceptPetition(id) {
-  await $apiFetch('/api/petitions/accept/' + id, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
-      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
-    },
-  })
-  getPetitions()
+  console.log(petition.data)
 }
 
 onMounted(getPetitions)

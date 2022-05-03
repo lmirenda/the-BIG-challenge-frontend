@@ -36,7 +36,7 @@ import { SelectorIcon } from '@heroicons/vue/solid'
 const menuItems = ref([
   {
     title: 'View Profile',
-    page: '',
+    page: '/info',
   },
   {
     title: 'Settings',

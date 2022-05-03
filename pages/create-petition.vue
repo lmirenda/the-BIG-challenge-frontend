@@ -6,3 +6,9 @@
     <UserHomePetitionForm />
   </NuxtLayout>
 </template>
+
+<script setup>
+definePageMeta({
+  middleware: ['auth', 'patient'],
+})
+</script>

@@ -7,5 +7,8 @@
       <slot />
     </div>
   </div>
-
 </template>
+
+<script setup>
+const { isLoggedIn } = useAuth()
+</script>

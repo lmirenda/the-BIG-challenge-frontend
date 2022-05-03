@@ -17,7 +17,12 @@
 <script setup>
 import { MenuItem } from '@headlessui/vue'
 
+definePageMeta({
+  middleware: ['auth'],
+})
+
 const { $apiFetch } = useNuxtApp()
+const { removeUser } = useAuth()
 
 async function logout() {
   try {
@@ -28,9 +33,12 @@ async function logout() {
       },
     })
     sessionStorage.clear()
+
     window.location.pathname = '/login'
   } catch (err) {
     console.log(err.data)
+  } finally {
+    removeUser()
   }
 }
 </script>

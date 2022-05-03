@@ -5,6 +5,10 @@
 <script setup>
 import { usePatientPetitionStore } from '@/stores/patientPetitions'
 
+definePageMeta({
+  middleware: ['auth', 'patient'],
+})
+
 const { $apiFetch } = useNuxtApp()
 const petitionStore = usePatientPetitionStore()
 const petitions = ref([])

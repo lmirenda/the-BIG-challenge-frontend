@@ -19,8 +19,12 @@
 
 <script setup>
 const secondaryItems = ref([
-  { name: 'Pending', href: '#', bgColorClass: 'bg-indigo-500' },
-  { name: 'In Progress', href: '#', bgColorClass: 'bg-green-500' },
+  { name: 'Pending', href: '/doctor-panel/', bgColorClass: 'bg-indigo-500' },
+  {
+    name: 'In Progress',
+    href: '/petitions/doctor/accepted/',
+    bgColorClass: 'bg-green-500',
+  },
   { name: 'Completed', href: '#', bgColorClass: 'bg-yellow-500' },
 ])
 </script>

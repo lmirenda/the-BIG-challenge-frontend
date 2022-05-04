@@ -77,6 +77,15 @@
             <dd class="mt-1 text-sm text-gray-900">
               {{ dropzoneFile?.name }}
             </dd>
+            <button
+              v-if="dropzoneFile"
+              type="button"
+              @click="finishPetition"
+              :disabled="showAlert"
+              class="mt-3 disabled:bg-indigo-200 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Finish
+            </button>
           </div>
         </dl>
       </div>
@@ -105,7 +114,7 @@ const petition = ref()
 const route = useRoute()
 const user = ref()
 const showAlert = ref(false)
-const dropzoneFile = ref('')
+const dropzoneFile = ref()
 
 const selectedFile = () => {
   dropzoneFile.value = document.querySelector('input[type=file]').files[0]
@@ -123,12 +132,27 @@ const reload = () => {
   window.location.reload()
 }
 
+async function finishPetition() {
+  const formData = new FormData()
+  formData.append('file', dropzoneFile.value)
+  console.log({ formdata: formData, dropzoneFile: dropzoneFile.value })
+
+  await $apiFetch('/api/petitions/accepted/finish/' + route.params.id, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
+      'Content-Type': 'multipart/form-data',
+    },
+    body: {
+      file: formData,
+    },
+  })
+}
+
 async function getPetition() {
   petition.value = await $apiFetch('/api/petitions/' + route.params.id, {
     method: 'GET',
     headers: {
-      Accept: 'application/json',
-      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
       Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
     },
   })
@@ -140,8 +164,6 @@ async function acceptPetition() {
     {
       method: 'PUT',
       headers: {
-        Accept: 'application/json',
-        'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
         Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
       },
     },

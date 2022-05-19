@@ -16,7 +16,7 @@
     <td class="px-6 py-3 text-sm text-gray-500 font-medium">
       <div class="flex items-center space-x-2">
         <div class="flex flex-shrink-0 -space-x-1">
-          {{ item.doctor ? item.doctor.name : '-' }}
+          {{ item.patient.user.name }}
         </div>
       </div>
     </td>
@@ -25,14 +25,9 @@
     >
       {{ item.created_at }}
     </td>
-    <td
-      class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-center"
-    >
-      {{ item.status }}
-    </td>
     <td class="px-6 py-3 whitespace-nowrap text-center text-sm font-medium">
       <NuxtLink
-        :to="'/petitions/' + item.id"
+        :to="'/petitions/doctor/' + item.id"
         class="text-indigo-600 hover:text-indigo-900 border border-indigo-800 px-4 py-2 rounded-md hover:bg-purple-600 hover:text-white focus:outline-none focus:shadow-outline hover:cursor-pointer"
       >
         View
@@ -42,9 +37,8 @@
 </template>
 
 <script setup>
-import { usePatientPetitionStore } from '@/stores/patientPetitions'
-const petitionStore = usePatientPetitionStore()
-const link = ref('petitions/' + props.item.id)
+const { $apiFetch } = useNuxtApp()
+const link = ref('petitions/doctor/' + props.item.id)
 const props = defineProps({
   item: {
     type: Object,
@@ -58,4 +52,19 @@ const props = defineProps({
     },
   },
 })
+
+async function viewPetition() {
+  let response = await $apiFetch('/api/petitions/accept/' + props.item.id, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
+      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
+    },
+  })
+  console.log(response)
+  if (response.status === 200) {
+    console.log('success')
+  }
+}
 </script>

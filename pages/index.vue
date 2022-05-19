@@ -768,6 +768,10 @@ import {
 } from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 
+definePageMeta({
+  middleware: 'guest',
+})
+
 const solutions = [
   {
     name: 'Inbox',

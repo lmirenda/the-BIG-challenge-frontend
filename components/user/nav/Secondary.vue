@@ -25,6 +25,10 @@ const secondaryItems = ref([
     href: '/petitions/doctor/accepted/',
     bgColorClass: 'bg-green-500',
   },
-  { name: 'Completed', href: '#', bgColorClass: 'bg-yellow-500' },
+  {
+    name: 'Completed',
+    href: '/petitions/doctor/finished',
+    bgColorClass: 'bg-yellow-500',
+  },
 ])
 </script>

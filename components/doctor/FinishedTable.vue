@@ -12,7 +12,7 @@
             <th
               class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Doctor
+              Patient
             </th>
             <th
               class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -22,21 +22,16 @@
             <th
               class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Status
-            </th>
-            <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
               View
             </th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-100">
-          <UserHomePetitionRow
-            v-for="petition in petitionStore.petitions"
+          <DoctorFinishedRow
+            v-for="petition in petitions"
             :key="petition.id"
             :item="petition"
-            :pin="petitionStore.pinPetition(petition.id)"
+            @updateRow="acceptPetition(petition.id)"
           />
         </tbody>
       </table>
@@ -44,8 +39,23 @@
   </div>
 </template>
 <script setup>
-import { usePatientPetitionStore } from '@/stores/patientPetitions'
-const petitionStore = usePatientPetitionStore()
+const { $apiFetch } = useNuxtApp()
+const petitions = ref()
 
-const petitions = ref(petitionStore.petitions)
+async function getPetitions() {
+  let petition = await $apiFetch('/api/petitions/finished', {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
+      Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
+    },
+  })
+
+  petitions.value = petition.data
+
+  console.log(petition.data)
+}
+
+onMounted(getPetitions)
 </script>

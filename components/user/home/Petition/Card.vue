@@ -22,11 +22,15 @@
         <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Full name</dt>
-            <dd class="mt-1 text-sm text-gray-900">{{ user?.name }}</dd>
+            <dd class="mt-1 text-sm text-gray-900">
+              {{ petition?.patient?.user?.name }}
+            </dd>
           </div>
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Email address</dt>
-            <dd class="mt-1 text-sm text-gray-900">{{ user?.email }}</dd>
+            <dd class="mt-1 text-sm text-gray-900">
+              {{ petition?.patient?.user?.email }}
+            </dd>
           </div>
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Phone number</dt>
@@ -53,13 +57,13 @@
               {{ petition.patient?.patient_other_info }}
             </dd>
           </div>
-          <div class="sm:col-span-2" v-if="petition.status != 'pending'">
+          <div class="sm:col-span-2" v-if="petition.status == 'in progress'">
             <dt class="text-sm font-medium text-gray-500">Doctor</dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{ petition.doctor.name }}
             </dd>
           </div>
-          <div class="sm:col-span-2" v-if="petition.status == 'finished'">
+          <div class="sm:col-span-2" v-if="petition.status == 'done'">
             <dt class="text-sm font-medium text-gray-500">Attachments</dt>
             <dd class="mt-1 text-sm text-gray-900">
               <ul
@@ -75,7 +79,15 @@
                       aria-hidden="true"
                     />
                     <span class="ml-2 flex-1 w-0 truncate">
-                      {{ petition.file }}
+                      <NuxtLink
+                        to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+                      >
+                        <dd
+                          class="mt-1 text-sm text-gray-900 hover:text-blue-500 hover:cursor-pointer"
+                        >
+                          {{ petition?.file }}
+                        </dd>
+                      </NuxtLink>
                     </span>
                   </div>
                   <div class="ml-4 flex-shrink-0">
@@ -105,22 +117,12 @@ const route = useRoute()
 const user = ref()
 
 async function getPetition() {
-  let data = await $apiFetch('/api/my/petitions', {
+  petition.value = await $apiFetch('/api/petitions/' + route.params.id, {
     method: 'GET',
     headers: {
-      Accept: 'application/json',
-      'X-XSRF-TOKEN': sessionStorage.getItem('validToken'),
       Authorization: 'Bearer ' + sessionStorage.getItem('validToken'),
     },
   })
-  let array = data[0]
-  let id = route.params.id
-  petition.value = findPetitionById(array, id)
-  user.value = JSON.parse(sessionStorage.getItem('user'))
-}
-
-function findPetitionById(array, id) {
-  return array.find((petition) => petition.id == id)
 }
 
 onBeforeMount(getPetition())

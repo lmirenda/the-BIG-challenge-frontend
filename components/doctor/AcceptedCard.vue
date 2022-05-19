@@ -54,7 +54,7 @@
               {{ petition?.patient?.patient_other_info }}
             </dd>
           </div>
-          <div class="sm:col-span-2" v-if="petition?.status != 'pending'">
+          <div class="sm:col-span-2" v-if="petition?.status == 'in progress'">
             <dt class="text-sm font-medium text-gray-500">Doctor</dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{ petition?.doctor?.name }}
@@ -87,20 +87,27 @@
               Finish
             </button>
           </div>
+
+          <div class="sm:col-span-2" v-if="petition?.status == 'done'">
+            <dt class="text-sm font-medium text-gray-500">
+              Download prescription
+            </dt>
+            <NuxtLink
+              to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+            >
+              <dd
+                class="mt-1 text-sm text-gray-900 hover:text-blue-500 hover:cursor-pointer"
+              >
+                {{ petition?.file }}
+              </dd>
+            </NuxtLink>
+          </div>
         </dl>
       </div>
     </div>
     <div class="mt-6">
       <AlertSuccess v-if="showAlert == true" @close="close">
-        <div class="inline-block">
-          Petition accepted successfully.
-          <span
-            class="text-blue-500 hover:text-blue-600 hover:cursor-pointer"
-            @click="reload"
-          >
-            <NuxtLink> Click here to upload a prescription. </NuxtLink>
-          </span>
-        </div>
+        <div class="inline-block">Petition completed successfully.</div>
       </AlertSuccess>
     </div>
   </div>
@@ -133,8 +140,9 @@ const reload = () => {
 }
 
 async function finishPetition() {
-  const formData = new FormData()
+  let formData = new FormData()
   formData.append('file', dropzoneFile.value)
+  formData.append('petition_id', petition.value.id)
   console.log({ formdata: formData, dropzoneFile: dropzoneFile.value })
 
   await $apiFetch('/api/petitions/accepted/finish/' + route.params.id, {
@@ -144,9 +152,10 @@ async function finishPetition() {
       'Content-Type': 'multipart/form-data',
     },
     body: {
-      file: formData,
+      file: dropzoneFile.value,
     },
   })
+  showAlert.value = true
 }
 
 async function getPetition() {

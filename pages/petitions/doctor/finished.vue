@@ -1,13 +1,12 @@
 <template>
   <NuxtLayout name="user">
-    <ClientOnly>
-      <DoctorAcceptedCard />
-    </ClientOnly>
+    <UserPatientActions>Home</UserPatientActions>
+    <DoctorFinishedTable />
   </NuxtLayout>
 </template>
 
 <script setup>
 definePageMeta({
-  middleware: ['auth'],
+  middleware: ['auth', 'doctor'],
 })
 </script>
